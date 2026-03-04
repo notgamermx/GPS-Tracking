@@ -1,39 +1,182 @@
-#root {
+/* Gamified Module Layout */
+.app-container {
   height: 100vh;
   width: 100vw;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-dark);
+}
+
+/* Ensure map fills the screen underneath */
+.map-fullscreen {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Glassmorphic Gamified HUD */
+.fitness-hud {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  width: 85%;
+  max-width: 320px;
+  padding: 1rem;
+
+  /* Glassmorphism */
+  background: var(--bg-panel);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glow);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   text-align: center;
 }
 
-p {
-  text-align: left;
+.hud-header h1 {
+  font-size: 1rem;
+  color: var(--text-main);
+  margin-bottom: 0.1rem;
 }
 
-code {
-  display: inline-block;
-  padding: 0 .3em ;
-  color: light-dark(#000, #fff);
-  background-color: light-dark(#eee, #3a3a3a);
+.status-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent-neon);
+  background: rgba(0, 255, 204, 0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: center;
+  margin: 0 auto;
 }
 
-input {
-  margin: 0.4rem;
+/* Pulsing animation for active tracking */
+.status-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-neon);
 }
 
-#radios {
-  float: left;
-  padding: 0 20px 20px 20px;
+.status-indicator.active {
+  box-shadow: 0 0 6px var(--accent-neon);
+  animation: pulse 1.5s infinite;
 }
 
-.starter-instructions {
-  color: light-dark(#333, #ccc);
-  text-align: left;
-  max-width: 800px;
+.status-indicator.error {
+  background-color: #ff3366;
+  box-shadow: 0 0 6px #ff3366;
+  animation: none;
 }
 
-#map {
-  height: 60%;
-  width: 100%;
+.status-badge.error-badge {
+  color: #ff3366;
+  background: rgba(255, 51, 102, 0.1);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+    box-shadow: 0 0 10px var(--accent-neon-glow);
+  }
+
+  100% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+}
+
+/* Main Stats Display */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.stat-box {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.75rem;
+  border-radius: 10px;
+  border-left: 2px solid var(--accent-neon);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.stat-label {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--text-main);
+  font-variant-numeric: tabular-nums;
+  margin-top: 0.2rem;
+}
+
+.stat-unit {
+  font-size: 0.7rem;
+  color: var(--accent-neon);
+  margin-left: 3px;
+}
+
+/* Coordinates Footer */
+.coords-display {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: monospace;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.4rem;
+  border-radius: 6px;
+}
+
+/* Leaflet Dark Theme Overrides */
+.leaflet-container {
+  font-family: 'Inter', inherit;
+  background: #0f1115 !important;
+}
+
+.leaflet-bar a {
+  background-color: #1e2128 !important;
+  color: #fff !important;
+  border-color: #333 !important;
+}
+
+.leaflet-bar a:hover {
+  background-color: #2a2d35 !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(15, 17, 21, 0.7) !important;
+  color: var(--text-muted) !important;
+  backdrop-filter: blur(4px);
+}
+
+.leaflet-control-attribution a {
+  color: var(--accent-neon) !important;
 }
