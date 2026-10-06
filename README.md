@@ -1,5 +1,9 @@
 # GPS Tracking Web App
 
+## Live site
+
+- [Open the site](https://gps-tracking-lyart.vercel.app) — Vercel project `gps-tracking`.
+
 A modern, beautiful real-time GPS tracking application built with React, TypeScript, Vite, and Leaflet.
 
 ## Vite and React plugins
